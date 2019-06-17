@@ -29,21 +29,21 @@ Installation
 
 With pip:
 
-```
-$ pip install nginxlib
-```
+.. code:: bash
+
+    $ pip install nginxlib
 
 For development: 
 
-```
-$ python setup.py develop
-```
+.. code:: bash
+
+    $ python setup.py develop
 
 Run the tests:
 
-```
-$ make test
-```
+.. code:: shell
+
+    $ make test
 
 Features
 --------
@@ -62,7 +62,7 @@ Given this nginx log entry:
 
 the `entryparse` object will behave as follows:
 
-.. codeblock:: python
+.. code:: python
 
     >>> from nginxparser import entryparse
 
