@@ -25,7 +25,7 @@ def extract_timestamp(log_entry):
     return timestamp
 
 
-def extract_domain(log_entry):
+def extract_url(log_entry):
     """Given a log entry, return a Python object representing the string."""
     pattern = r"https?://(?:[-\w.]|(?:%[\da-fA-F]{2}))+"
     url = re.findall(pattern, log_entry)[0]
@@ -36,11 +36,18 @@ def extract_domain(log_entry):
     return urlparse(url)
 
 
+def extract_deploy_id(log_entry):
+    url = extract_url(log_entry)
+
+    return url.netloc.split('.')[0].split('-')[-1]
+
+
 class LogEntry(object):
 
     def __init__(self, log_string):
         self.timestamp = extract_timestamp(log_string)
-        self.url = extract_domain(log_string)
+        self.url = extract_url(log_string)
+        self.deploy_id = extract_deploy_id(log_string)
 
     def __str__(self):
         "LogEntry(timestamp={}, url={}, deploy_id={})".format(self.timestamp,

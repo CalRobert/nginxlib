@@ -16,11 +16,13 @@ Note: if you log files are not in standard format the find() function will need 
 
 Usage 
 ======= 
+Given this nginx log entry: 
 
-## Timestamp
+```
+96.49.212.83 - - [16/Jun/2019:22:52:21 +0000] "GET /vs/editor/editor.main.nls.js HTTP/1.1" 200 34027 "https://3000-98358490.staging-avl.appsembler.com/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:67.0) Gecko/20100101 Firefox/67.0" "-"  # noqa E503
+```
 
-Get the timestamp from a log entry. Having extracted
-one entry line from an nginx log, do the following:
+the `entryparse` object will behave as follows:
 
 ```
 >>> from nginxparser import entryparse
@@ -28,18 +30,8 @@ one entry line from an nginx log, do the following:
 >>> entry = entryparse(log_string)
 >>> entry.timestamp
 datetime.datetime(2019, 6, 16, 23, 54, 5, 624139)
-```
-
-## URL
-
-Get the URL from a log entry:
-
-```
->>> from nginxparser import entryparse
-
->>> entry = entryparse(log_string)
 >>> entry.url
 ParseResult(scheme='https', netloc='3000-98358490.staging-avl.appsembler.com', path='', params='', query='', fragment='')
+>>> entry.deploy_id
+'98358490'
 ```
-
-

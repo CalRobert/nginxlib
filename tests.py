@@ -24,13 +24,11 @@ def test_get_event_time():
 
 
 def test_get_url():
-    """Given a log event string, I can get the domain."""
+    """Given a log event string, I can get the url."""
     url_string = "https://3000-98358490.staging-avl.appsembler.com"
     url = urlparse(url_string)
 
     event = LogEntry(LOG_ENTRY)
-
-    pytest.set_trace()
 
     assert url == event.url
 
@@ -38,7 +36,7 @@ def test_get_url():
 def test_get_deploy_id():
     """Given a log event string, I can get the deployment ID."""
 
-    deploy_id = '987547'
+    deploy_id = '98358490'
 
     event = LogEntry(LOG_ENTRY)
 
