@@ -5,3 +5,5 @@
 __author__ = """Brian Dant"""
 __email__ = 'brian.dant@protonmail.com'
 __version__ = '0.1.0'
+
+from .nginxlib import LogEntry, entryparse

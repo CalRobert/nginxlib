@@ -7,7 +7,7 @@ from dateutil import parser
 import re
 from urllib.parse import urlparse
 
-from exceptions import DateNotFound, URINotFound
+from .exceptions import DateNotFound, URINotFound
 
 
 def extract_timestamp(log_entry):

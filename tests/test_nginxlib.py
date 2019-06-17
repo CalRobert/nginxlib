@@ -8,7 +8,7 @@ from urllib.parse import urlparse
 
 import pytest  # noqa F401
 
-from nginxlib.nginxlib import LogEntry
+from nginxlib import LogEntry
 
 
 LOG_ENTRY = """
