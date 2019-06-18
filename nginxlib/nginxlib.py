@@ -7,14 +7,16 @@ from dateutil import parser
 import re
 from urllib.parse import urlparse
 
-from .exceptions import DateNotFound, URINotFound
+from .exceptions import DateNotFound, URLNotFound
+
+URL_PATTERN = r"https?://(?:[-\w.]|(?:%[\da-fA-F]{2}))+"
+TIMESTAMP_PATTERN = r"\[(.+)\]\s"
 
 
 def extract_timestamp(log_entry):
     """Given a log entry, return a Python object
     (datetime.datetime) from the timestamp."""
-    pattern = r"\[(.+)\]\s"
-    match = re.search(pattern, log_entry)
+    match = re.search(TIMESTAMP_PATTERN, log_entry)
 
     if not match:
         msg = "The date was not found in the following log entry: {}".format(log_entry)
@@ -28,27 +30,48 @@ def extract_timestamp(log_entry):
 
 def extract_url(log_entry):
     """Given a log entry, return a Python object representing the string."""
-    pattern = r"https?://(?:[-\w.]|(?:%[\da-fA-F]{2}))+"
-    url = re.findall(pattern, log_entry)[0]
+
+    url = re.findall(URL_PATTERN, log_entry)
 
     if not url:
-        raise URINotFound(log_entry)
+        raise URLNotFound(log_entry)
 
-    return urlparse(url)
+    return urlparse(url[-1])
 
 
 def extract_deploy_id(log_entry):
+    """Given a log entry, return the 'deploy ID'.
+
+    (A deploy ID is specific to Appsembler, the maintainer of this package.
+    If you are not an Appsembler employee, or don't for another reason
+    care about the zeroth element of the subdomain, fork this package
+    and submit a PR :) Otherwise, ignore the deploy_id attribute.)
+    """
     url = extract_url(log_entry)
 
-    return url.netloc.split('.')[0].split('-')[-1]
+    subdomain = url.netloc.split('.')[0]
+    parts = subdomain.split('-')
+    # A subdomin with no hyphen is not of interest.
+    if not len(parts) > 1:
+        return None
+    else:
+        return parts[-1]
 
 
 class LogEntry(object):
 
     def __init__(self, log_string):
         self.timestamp = extract_timestamp(log_string)
-        self.url = extract_url(log_string)
-        self.deploy_id = extract_deploy_id(log_string)
+
+        try:
+            self.url = extract_url(log_string)
+        except URLNotFound:
+            self.url = None
+
+        if self.url:
+            self.deploy_id = extract_deploy_id(log_string)
+        else:
+            self.deploy_id = None
 
     def __str__(self):
         "LogEntry(timestamp={}, url={}, deploy_id={})".format(self.timestamp,

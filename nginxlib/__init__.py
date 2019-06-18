@@ -4,6 +4,9 @@
 
 __author__ = """Brian Dant"""
 __email__ = 'brian.dant@protonmail.com'
-__version__ = '__version__' = '0.1.0-alpha'
+__version__ = '0.1.0-alpha'
 
-from .nginxlib import LogEntry, entryparse
+
+from .nginxlib import (  # noqa F401
+    LogEntry, entryparse, URL_PATTERN, TIMESTAMP_PATTERN
+)

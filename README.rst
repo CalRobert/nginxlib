@@ -83,3 +83,8 @@ Credits
 
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
 .. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
+
+TODO 
+-----
+
+* Use this regex to parse the log entry? https://gist.github.com/hreeder/f1ffe1408d296ce0591d
