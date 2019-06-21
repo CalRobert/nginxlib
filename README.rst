@@ -16,10 +16,6 @@ Parse nginx logs with Python.
 
 * Free software: MIT license
 
-<! -- Docs not yet published
-* Documentation: https://nginxlib.readthedocs.io.
--->
-
 This package parses nginx logs and provides a Python
 object representing each log. It also has some procedures
 to aggregate log data.
@@ -46,13 +42,13 @@ Run the tests:
     $ make test
 
 Features
---------
+=============
 
 * Parse a discrete nginx log entry to a Python object
 * Aggregate log data
 
 Usage 
---------
+========
 
 Given this nginx log entry: 
 
@@ -76,7 +72,7 @@ the `entryparse` object will behave as follows:
 
 
 Credits
--------
+=========
 
 - This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
 - Inspired by and forked from: https://code.richard.do/explore/projects.
@@ -85,6 +81,6 @@ Credits
 .. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
 
 TODO 
------
+=======
 
 * Use this regex to parse the log entry? https://gist.github.com/hreeder/f1ffe1408d296ce0591d
